@@ -25,12 +25,14 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+#pragma mark - Present
 @interface TransitionAnimatorPresent: NSObject<UIViewControllerAnimatedTransitioning>
 
 @property (nonatomic, strong) UIView *sourceView; ///< 点击的View
 
 @end
 
+#pragma mark - Dimiss
 @interface TransitionAnimatorDimiss: NSObject<UIViewControllerAnimatedTransitioning>
 
 @property (nonatomic, strong) UIView *sourceView; ///< 点击的View

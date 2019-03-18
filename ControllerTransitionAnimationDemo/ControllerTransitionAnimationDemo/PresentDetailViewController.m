@@ -25,18 +25,22 @@
     self.backView.frame = self.view.bounds;
     [self.view addSubview:self.backView];
     
-    button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setTitle:@"点击这个页面消失" forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    button.center = self.view.center;
-    button.bounds = CGRectMake(0, 0, self.view.frame.size.width, 30);
-    [button addTarget:self action:@selector(didTappedButton:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backView addSubview: button];
+    // 创建一个实例按钮
+    {
+        button = [UIButton buttonWithType:UIButtonTypeCustom];
+        [button setTitle:@"点击这个页面消失" forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.center = self.view.center;
+        button.bounds = CGRectMake(0, 0, self.view.frame.size.width, 30);
+        [button addTarget:self action:@selector(didTappedButton:) forControlEvents:UIControlEventTouchUpInside];
+        [self.backView addSubview: button];
+    }
     
     UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didRecognizedPanGesture:)];
     [self.backView addGestureRecognizer:pan];
 }
 
+/** self.view 的滑动触摸事件 */
 - (void)didRecognizedPanGesture:(UIPanGestureRecognizer *)panGesture {
     CGPoint point       = [panGesture translationInView:self.view];
     CGPoint location    = [panGesture locationInView:self.view];

@@ -10,7 +10,7 @@
 #import "TransitionAnimator.h"
 
 @interface DetailViewController ()<UINavigationControllerDelegate>
-//@property (nonatomic, strong) WDPercentDrivenInteractiveTransition *interactiveTransition;
+
 @property (nonatomic, assign) BOOL isClickPush;
 @property (nonatomic, strong) UIPercentDrivenInteractiveTransition *interactive;
 
@@ -24,29 +24,16 @@
     self.navigationController.delegate = self;
 }
 
-#pragma mark - UINavationController delegate method
-- (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-                                            animationControllerForOperation:(UINavigationControllerOperation)operation
-                                                         fromViewController:(UIViewController *)fromVC
-                                                           toViewController:(UIViewController *)toVC {
-    if (operation == UINavigationControllerOperationPop) {
-        TransitionAnimatorPop *animator = [[TransitionAnimatorPop alloc] init];
-        [self.interactive updateInteractiveTransition:0];
-        animator.sourceView = self.sorceView;
-        return animator;
-    }
-    return nil;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"详情";
     self.interactive = [[UIPercentDrivenInteractiveTransition alloc] init];
-    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(Pan:)];
+    UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didRecognizedPanGesture:)];
     [self.view addGestureRecognizer:pan];
 }
 
-- (void)Pan:(UIPanGestureRecognizer *)recognizer{
+/** self.view 的滑动触摸事件 */
+- (void)didRecognizedPanGesture:(UIPanGestureRecognizer *)recognizer {
     CGPoint translatedPoint = [recognizer translationInView:self.view];
     CGFloat persent =  translatedPoint.x / [[UIScreen mainScreen] bounds].size.width;
     persent = fabs(persent);
@@ -76,5 +63,20 @@
             break;
     }
 }
+
+#pragma mark - UINavationController delegate method
+- (nullable id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                            animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                         fromViewController:(UIViewController *)fromVC
+                                                           toViewController:(UIViewController *)toVC {
+    if (operation == UINavigationControllerOperationPop) {
+        TransitionAnimatorPop *animator = [[TransitionAnimatorPop alloc] init];
+        [self.interactive updateInteractiveTransition:0];
+        animator.sourceView = self.sorceView;
+        return animator;
+    }
+    return nil;
+}
+
 
 @end

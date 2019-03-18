@@ -12,7 +12,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PresentDetailViewController : UIViewController
 @property (nonatomic, strong, readonly) UIView *backView; ///< 背景View
-@property (nonatomic, strong) UIColor *backColor; ///< 背景颜色
 @end
 
 NS_ASSUME_NONNULL_END
